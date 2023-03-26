@@ -69,7 +69,7 @@ pair<int *, int> SortAndCountInv(int A[], int n) {
     }
 }
 
-//сортую масив кількості інверсій і разом із ним аналогічно переставляю елементи в масиві індексів
+//сортую масив кількостей інверсій і разом із ним аналогічно переставляю елементи в масиві індексів
 void SortRowsWithIndex(pair<int *, int> *sorted_rows, int ind[], int n) {
     for (int i = 1; i < n; i++) {
         pair<int *, int> key = sorted_rows[i];
@@ -95,7 +95,7 @@ void WriteDataToFile(pair<int *, int> *sorted_rows, int ind[], int u, string fil
     file.close();
 }
 
-//обробляю файл, вказаний при старті програми
+//оброблюю файл, вказаний при старті програми
 void FileProcessing(const string& filename, int x) {
 
     //зчитую всю інфу з файлу: кількість рядків, довжину рядків, індекси, масив рядків
@@ -121,11 +121,11 @@ void FileProcessing(const string& filename, int x) {
     for (int i = 0; i < u; i++) {
         sorted_rows[i] = SortAndCountInv(newArr[i], m);
     }
-    
-    //сортую другий елемент створеного масиву, тобто масив кількості інверсій та разом з ним роблю тіж самі перестановки і в масиві індексів
+
+    //сортую другий елемент sorted_rows, тобто масив кількостей інверсій та разом з ним роблю тіж самі перестановки і в масиві індексів
     SortRowsWithIndex(sorted_rows,ind,u);
 
-    //записую масиви індексів та кількості інверсій, відсортовані за інверсіями, у новий файл
+    //записую масиви індексів та кількостей інверсій, відсортовані за кількостями інверсій, у новий файл
     string name="ip21_Tkach_L_02_output.txt";
     WriteDataToFile(sorted_rows, ind, u, name);;
     
