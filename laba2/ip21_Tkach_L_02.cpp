@@ -16,7 +16,7 @@ int **CreateNewArray(int **arr, int *ind, int u, int m) {
     return newArr;
 }
 
-//Процедура злиття та підрахунку розділених інверсій
+//процедура злиття та підрахунку розділених інверсій
 pair<int *, int> MergeAndCountSplitInv(int A[], int L[], int n1, int R[], int n2) {
     int *merged_A = new int[n1 + n2];
     int i = 0;
@@ -41,7 +41,7 @@ pair<int *, int> MergeAndCountSplitInv(int A[], int L[], int n1, int R[], int n2
     return make_pair(merged_A, inv_count);
 }
 
-//Процедура підрахунку інверсій
+//процедура підрахунку інверсій
 pair<int *, int> SortAndCountInv(int A[], int n) {
     if (n == 1) {
         int *sorted_A = new int[n];
@@ -71,20 +71,25 @@ pair<int *, int> SortAndCountInv(int A[], int n) {
 
 //сортую масив кількості інверсій і разом із ним аналогічно переставляю елементи в масиві індексів
 void SortRowsWithIndex(pair<int *, int> *sorted_rows, int ind[], int n) {
-    for (int i = 0; i < n; i++) {
-        for (int j = i + 1; j < n; j++) {
-            if (sorted_rows[i].second > sorted_rows[j].second) {
-                swap(sorted_rows[i], sorted_rows[j]);
-                swap(ind[i], ind[j]);
-            }
+    for (int i = 1; i < n; i++) {
+        pair<int *, int> key = sorted_rows[i];
+        int key_ind = ind[i];
+        int j = i - 1;
+        while (j >= 0 && sorted_rows[j].second > key.second) {
+            sorted_rows[j + 1] = sorted_rows[j];
+            ind[j + 1] = ind[j];
+            j--;
         }
+        sorted_rows[j + 1] = key;
+        ind[j + 1] = key_ind;
     }
 }
 
 //записую індекси та кількість інверсій у рядках у новий файл
 void WriteDataToFile(pair<int *, int> *sorted_rows, int ind[], int u, string filename) {
     ofstream file(filename);
-    for (int i = 0; i < u; i++) {
+    file << ind[0] << endl;
+    for (int i = 1; i < u; i++) {
         file << ind[i] << " " << sorted_rows[i].second << endl;
     }
     file.close();
@@ -116,6 +121,8 @@ void FileProcessing(const string& filename, int x) {
     for (int i = 0; i < u; i++) {
         sorted_rows[i] = SortAndCountInv(newArr[i], m);
     }
+    
+    //сортую другий елемент створеного масиву, тобто масив кількості інверсій та разом з ним роблю тіж самі перестановки і в масиві індексів
     SortRowsWithIndex(sorted_rows,ind,u);
 
     //записую масиви індексів та кількості інверсій, відсортовані за інверсіями, у новий файл
