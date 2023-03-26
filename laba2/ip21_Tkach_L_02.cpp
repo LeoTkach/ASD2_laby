@@ -4,7 +4,7 @@
 #include <fstream>
 using namespace std;
 
-//создаю новый двумерный массив для подсчёта инверсий
+//створюю новий двовимірний масив для підрахунку інверсій
 int **CreateNewArray(int **arr, int *ind, int u, int m) {
     int **newArr = new int *[u];
     for (int i = 0; i < u; i++) {
@@ -69,7 +69,7 @@ pair<int *, int> SortAndCountInv(int A[], int n) {
     }
 }
 
-//сортирую массив количества инверсий и вместе с ним аналогично переставляю элементы в массиве индексов
+//сортую масив кількості інверсій і разом із ним аналогічно переставляю елементи в масиві індексів
 void SortRowsWithIndex(pair<int *, int> *sorted_rows, int ind[], int n) {
     for (int i = 0; i < n; i++) {
         for (int j = i + 1; j < n; j++) {
@@ -81,7 +81,7 @@ void SortRowsWithIndex(pair<int *, int> *sorted_rows, int ind[], int n) {
     }
 }
 
-//записываю индексы и количество инверcий в строках в новый файл
+//записую індекси та кількість інверсій у рядках у новий файл
 void WriteDataToFile(pair<int *, int> *sorted_rows, int ind[], int u, string filename) {
     ofstream file(filename);
     for (int i = 0; i < u; i++) {
@@ -90,10 +90,10 @@ void WriteDataToFile(pair<int *, int> *sorted_rows, int ind[], int u, string fil
     file.close();
 }
 
-//обрабатываю файл указаный при старте програмы
+//обробляю файл, вказаний при старті програми
 void FileProcessing(const string& filename, int x) {
 
-    //считываю всю инфу из файла: количество рядков, длину рядков, индексы, массив рядков
+    //зчитую всю інфу з файлу: кількість рядків, довжину рядків, індекси, масив рядків
     ifstream file(filename);
     int u, m;
     file >> u >> m;
@@ -108,21 +108,21 @@ void FileProcessing(const string& filename, int x) {
     }
     file.close();
 
-    //создаю новый массив рядков для которых надо будет считать количество инверсий
+    //створюю новий масив рядків для яких треба буде рахувати кількість інверсій
     int **newArr = CreateNewArray(data, data[x - 1], u, m);
 
-    //применяем функцию SortAndCountInv() к каждому рядку массива newArr и записываю в sorted_rows масив отсортированых рядков и масив количества инверсий
+    //застосовую функцію SortAndCountInv() до кожної строки масиву newArr і записую в sorted_rows масив відсортованих рядків та масив кількості інверсій
     pair<int *, int> *sorted_rows = new pair<int *, int>[u];
     for (int i = 0; i < u; i++) {
         sorted_rows[i] = SortAndCountInv(newArr[i], m);
     }
     SortRowsWithIndex(sorted_rows,ind,u);
 
-    //записываю массивы индексов и количества инверсий, отсортированые по инверсиям, в новыый файл
+    //записую масиви індексів та кількості інверсій, відсортовані за інверсіями, у новий файл
     string name="ip21_Tkach_L_02_output.txt";
     WriteDataToFile(sorted_rows, ind, u, name);;
     
-    //освобождение памяти
+    //звільнення пам'яті
     delete[] sorted_rows;
     for (int i = 0; i < u; i++) {
         delete[] newArr[i];
@@ -135,9 +135,7 @@ void FileProcessing(const string& filename, int x) {
 }
 
 int main(int argc, char* argv[]){
-    // cout<<argv[1]<<endl;
     int num = stoi(argv[2]);
-    // cout<<num+2;
     FileProcessing(argv[1], num);
     return 0;
 }
