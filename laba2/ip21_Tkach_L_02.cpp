@@ -21,7 +21,7 @@ pair<int *, int> MergeAndCountSplitInv(int A[], int L[], int n1, int R[], int n2
     int *merged_A = new int[n1 + n2];
     int i = 0;
     int j = 0;
-    int inv_count = 0LL;
+    int inv_count = 0;
     for (int k = 0; k < n1 + n2; k++) {
         if (i == n1) {
             merged_A[k] = R[j];
@@ -46,7 +46,7 @@ pair<int *, int> SortAndCountInv(int A[], int n) {
     if (n == 1) {
         int *sorted_A = new int[n];
         sorted_A[0] = A[0];
-        return make_pair(sorted_A, 0LL);
+        return make_pair(sorted_A, 0);
     } else {
         int n1 = n / 2;
         int n2 = n - n1;
