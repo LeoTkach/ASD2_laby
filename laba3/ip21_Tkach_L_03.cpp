@@ -4,6 +4,7 @@
 #include <fstream>
 using namespace std;
 
+// Процедура розбиття
 int Partition1(int A[], int p, int r) {
   int x = A[r];
   int i = p - 1;
@@ -17,6 +18,7 @@ int Partition1(int A[], int p, int r) {
   return i + 1;
 }
 
+// Процедура сортування
 void QuickSort1(int A[], int p, int r, int& comparisons) {
   if (p < r) {
     int q = Partition1(A, p, r);
@@ -50,9 +52,10 @@ int Median(int A[], int p, int r) {
     return res;
 }
 
+// Процедура розбиття
 int Partition2(int A[], int p, int r) {
     int y= Median(A, p, r); 
-    // зміщую медіанний елемнт у кінець, далі йде такий же алгоритм, як і в першому випадку
+    // зміщую медіанний елемнт у кінець, далі йде такий же алгоритм, як і в Partition1
     swap(A[y], A[r]);
     
     int x=A[r];
@@ -68,6 +71,8 @@ int Partition2(int A[], int p, int r) {
     return (i + 1);
     
 }
+
+// Процедура сортування
 void QuickSort2(int A[], int p, int r, int& comparisons) {
     // якщо підмасив менше або дорівнює 3, то сортую його без процедури розбиття, але теж підразовую кількість інверсій
     if (r - p + 1 <= 3) { 
