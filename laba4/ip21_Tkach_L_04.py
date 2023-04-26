@@ -1,8 +1,8 @@
 def tarry_algorithm(graph, start_vertex, end_vertex):
     n = len(graph)
-    # Початкова вершина
+    # спочатку встановлюю поточну вершину, як початкову
     current_vertex = start_vertex
-    # Список відвіданих вершин
+    # створюю список відвіданих вершин та одразу додаю туди першу початкову вершину
     visited_vertices = [current_vertex]
     
     # матриця зі списками вершин, в які я вже ходив із поточної
@@ -10,21 +10,20 @@ def tarry_algorithm(graph, start_vertex, end_vertex):
     # матриця зі списками вершин, з яких я вже ходив у поточну
     visited_from_vertices = [[] for i in range(n)]
 
-    # Поки не досягнуто кінцевої вершини
+    # запускаю цикл, поки не досягнуто кінцевої вершини
     while current_vertex != end_vertex:
         
-        # Оновлюємо список суміжних вершин для поточної вершини
+        # створюю список суміжних вершин для поточної вершини
         adj_vertices = [i for i in range(n) if graph[current_vertex][i]==1]
-        # print("current_vertex",current_vertex,"              adj_vertices",adj_vertices)
-        
-        # print("visited_to_vertices",visited_to_vertices[current_vertex],"    visited_from_vertices",visited_from_vertices[current_vertex])
-
+       
+        # створюю список доступних невідвіданих вершини (в які з поточної вершини я не ходив та з яких я не ходив у поточну )
         candidate_vertices = list(set(adj_vertices) - set(visited_to_vertices[current_vertex]) - set(visited_from_vertices[current_vertex]))
 
-        # Якщо є доступні невідвідані вершини (в які з поточної вершини я не ходив або з яких я не ходив у поточну )
+        # Якщо є доступні невідвідані вершини 
         if candidate_vertices:
-            # Знаходимо найменшу серед них
-            next_vertex = min(candidate_vertices)
+            # обираємо найменшу серед них
+            next_vertex = candidate_vertices[0]
+
             # Додаємо нову вершину до списку відвіданих
             visited_vertices.append(next_vertex)
 
@@ -32,32 +31,34 @@ def tarry_algorithm(graph, start_vertex, end_vertex):
             visited_to_vertices[current_vertex].append(next_vertex)
             visited_from_vertices[next_vertex].append(current_vertex)
 
-            # наприкінці змінюємо поточну вершину на вибрану
+            # наприкінці змінюємо поточну вершину на обрану
             current_vertex = next_vertex
-        else:
-            # Якщо немає доступних вершин
+
+        # Якщо немає доступних вершин, тобто той список пустий
+        else:   
+            # тоді створюємо новий список достпуних вершин, але тепер туди входять ті вершини з яких в поточну ми вже ходили
             candidate_vertices = list(set(adj_vertices) - set(visited_to_vertices[current_vertex]))
+
             # Якщо є вершини, з яких ми вже ходили в поточну вершину, але які ми ще не ходили
             if candidate_vertices:
-                # Знаходимо найменшу серед них
-                next_vertex = min(candidate_vertices)
-                # Додаємо нову вершину до списку відвіданих та оновлюємо списки для поточної та нової вершин
+                # обираємо найменшу серед них
+                next_vertex = candidate_vertices[0]
+
+                # Додаємо нову вершину до списку відвіданих
                 visited_vertices.append(next_vertex)
 
                 # оновлюємо список вершин у які я ходив для поточної та список вершин з яких я ходив для нової вершини
                 visited_to_vertices[current_vertex].append(next_vertex)
                 visited_from_vertices[next_vertex].append(current_vertex)
 
-                # наприкінці змінюємо поточну вершину на вибрану
+                # наприкінці змінюємо поточну вершину на обрану
                 current_vertex = next_vertex
             else:
-                # Якщо доступних невідвіданих вершин і вершин з яких ми можемо потрапити в поточну нема
+                # Якщо залишились тількі ті вершини, в які з цієї вершини ми вже ходили
                 # То повертаємо None, що означає, що шлях не знайдено
                 return None
     # Повертаємо список відвіданих вершин, який утворює шлях від start_vertex до end_vertex
     return visited_vertices
-
-
 
 def graph_information_input():
     print("Enter the number of the vertices: ")
@@ -78,7 +79,6 @@ def graph_information_input():
             print(graph[i][j], end=' ')
         print()
     return graph, start_vertex, end_vertex
-
 
 def graph_information_generation():
     import random
@@ -113,7 +113,6 @@ def graph_drawing(graph):
     plt.show()
 
 
-
 print("Do you want to enter adjacency matrix manually or generate it instead ?(y/n)")
 ans=input()
 if (ans=='y'):
@@ -121,15 +120,12 @@ if (ans=='y'):
 else:
     graph, start_vertex, end_vertex=graph_information_generation()
 
-
-
-
 path = tarry_algorithm(graph, start_vertex, end_vertex)
 
 if not path:
-    print("There is no path between start_vertex and end_vertex")
+    print("There is no path between",start_vertex,"and",end_vertex)
     graph_drawing(graph)
 else:
-    print("Visited verticies: ")
+    print("The path between",start_vertex,"and",end_vertex,"is: ")
     print(path)
     graph_drawing(graph)
