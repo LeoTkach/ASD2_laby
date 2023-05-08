@@ -37,7 +37,7 @@ void MinHeapify(int data[], int i, int heap_size) {
     }
 }
 
-// функція побудови піраміди за спаданням
+// функція побудови незростаючої піраміди
 void BuildMinHeap(int data[], int heap_size) {
     for (int i = heap_size / 2 - 1; i > -1; i--) {
         MinHeapify(data, i, heap_size);
@@ -68,7 +68,7 @@ void MaxHeapify(int data[], int i, int heap_size) {
     }
 }
 
-// функція побудови піраміди за зростанням
+// функція побудови неспадаючої піраміди
 void BuildMaxHeap(int data[], int heap_size) {
     for (int i = heap_size / 2 - 1; i > -1; i--) {
         MaxHeapify(data, i, heap_size);
@@ -97,6 +97,11 @@ int HeapExtractMin(int data[], int heap_size) {
     heap_size--;
     MinHeapify(data, 0, heap_size - 1);
     return min_val;
+}
+
+// функція для отримання найбільшого, чи найменшого елемента піраміди
+int Max_Min(int data[]){
+    return data[0];
 }
 
 // записую медіанні елементи у новий файл
@@ -153,7 +158,7 @@ void FileProcessing(const string& filename) {
         }
         cur_len-=1;
 
-        if (x_i < H_low[0]) {
+        if (x_i < Max_Min(H_low)) {
             H_low[low_size] = x_i;
             low_size++;
         } else {
@@ -180,16 +185,16 @@ void FileProcessing(const string& filename) {
         BuildMinHeap(H_high, high_size);
 
         if (low_size > high_size) {
-            int Med = H_low[0];
+            int Med = Max_Min(H_low);
             Medians[i + 1] = make_pair(Med, Med);
         }
         else if (high_size > low_size) {
-            int Med = H_high[0];
+            int Med = Max_Min(H_high);
             Medians[i + 1] = make_pair(Med, Med);
         }
         else {
-            int Med1 = H_low[0];
-            int Med2 = H_high[0];
+            int Med1 = Max_Min(H_low);
+            int Med2 = Max_Min(H_high);
             Medians[i + 1] = make_pair(Med1, Med2);
         }
     }
@@ -197,8 +202,7 @@ void FileProcessing(const string& filename) {
     //записую медіанні елементи у новий файл 
     string name="ip21_Tkach_L_05_output.txt";
     WriteMediansToFile(Medians, len, name);
-    
-    
+        
 }
 
 int main(int argc, char* argv[]){
