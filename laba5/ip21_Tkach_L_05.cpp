@@ -37,7 +37,7 @@ void MinHeapify(int data[], int i, int heap_size) {
     }
 }
 
-// функція побудови незростаючої піраміди
+// функція побудови неспадаючої піраміди
 void BuildMinHeap(int data[], int heap_size) {
     for (int i = heap_size / 2 - 1; i > -1; i--) {
         MinHeapify(data, i, heap_size);
@@ -68,7 +68,7 @@ void MaxHeapify(int data[], int i, int heap_size) {
     }
 }
 
-// функція побудови неспадаючої піраміди
+// функція побудови незростаючої піраміди
 void BuildMaxHeap(int data[], int heap_size) {
     for (int i = heap_size / 2 - 1; i > -1; i--) {
         MaxHeapify(data, i, heap_size);
