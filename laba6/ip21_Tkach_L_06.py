@@ -89,3 +89,24 @@ for size in sizes:
     comparisons.append(comp_count)
 
 plot_graph(sizes, comparisons)
+
+size = int(input("\nВведіть розмірність таблиці: "))
+hash_table = HashTable(size)
+keys = [generate_random_key(20) for _ in range(size)]
+values = [generate_random_value(200) for _ in range(size)]
+for i in range(size):
+    key = keys[i]
+    value = values[i]
+    hash_table.insert(key, value)
+index = int(input("Введіть індекс згенерованого ключа для пошуку його в таблиці: "))
+if index >= 0 and index < len(keys):
+    key_to_search = keys[index]
+    print(f"Ключ за індексом {index} дорівнює: {key_to_search}")
+    print(f"\nЗгенероване начення елемента за ключем {key_to_search} дорівнює: ", values[index])
+else:
+    print("Введений індекс недійсний.")
+print("\nПошук елемента в таблиці...")
+print(f"Значення елемента за ключем {key_to_search} в таблиці дорівнює: ", hash_table.search(key_to_search),"\n")
+
+
+
