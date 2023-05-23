@@ -64,9 +64,9 @@ def generate_random_value(length):
 
 def plot_graph(sizes, comparisons):
     plt.plot(sizes, comparisons, marker='o')
-    plt.xlabel('Розмірність структури')
+    plt.xlabel('Розмірність хеш-таблиці')
     plt.ylabel('Кількість порівнянь')
-    plt.title('Залежність кількості порівнянь від розмірності структури')
+    plt.title('Залежність кількості порівнянь від розмірності хеш-таблиці')
     plt.show()
 
 sizes = [100, 1000, 5000, 10000, 20000]
@@ -103,10 +103,11 @@ if index >= 0 and index < len(keys):
     key_to_search = keys[index]
     print(f"Ключ за індексом {index} дорівнює: {key_to_search}")
     print(f"\nЗгенероване начення елемента за ключем {key_to_search} дорівнює: ", values[index])
+    print("\nПошук елемента в таблиці...")
+    print(f"Значення елемента за ключем {key_to_search} в таблиці дорівнює: ", hash_table.search(key_to_search),"\n")
 else:
     print("Введений індекс недійсний.")
-print("\nПошук елемента в таблиці...")
-print(f"Значення елемента за ключем {key_to_search} в таблиці дорівнює: ", hash_table.search(key_to_search),"\n")
+
 
 
 
