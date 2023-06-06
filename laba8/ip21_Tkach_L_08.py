@@ -1,6 +1,6 @@
 import numpy as np
 
-dist_matrix = np.array([
+dist_matrix = [
     [0     , 0     , 0     , 0     , 0     , 194   , 0     , 427   , 0     , 0     , 304   , 0     , 727   , 956   , 560   ],
     [0     , 0     , 0     , 0     , 0     , 0     , 513   , 0     , 369   , 271   , 711   , 0     , 0     , 0     , 466   ],
     [0     , 0     , 0     , 210   , 0     , 0     , 0     , 128   , 0     , 0     , 0     , 135   , 500   , 0     , 0     ],
@@ -16,11 +16,11 @@ dist_matrix = np.array([
     [727   , 0     , 500   , 0     , 1486  , 640   , 1205  , 852   , 0     , 0     , 1032  , 1066  , 0     , 696   , 0     ],
     [956   , 0     , 0     , 705   , 782   , 957   , 0     , 821   , 0     , 0     , 0     , 727   , 696   , 0     , 0     ],
     [560   , 466   , 0     , 0     , 0     , 162   , 239   , 0     , 1152  , 0     , 407   , 0     , 0     , 0     , 0     ]
-])
+]
 city_names = ['Lima', 'Arequipa', 'Trujillo', 'Chiclayo', 'Piura', 'Huancayo', 'Cusco', 'Chimbote', 'Tacna', 'Juliaca', 'Ica', 'Cajamarca', 'Pucallpa', 'Tarapoto', 'Ayacucho']
 
 def nearest_neighbor(dist_matrix):
-    num_cities = dist_matrix.shape[0]
+    num_cities = 15
     unvisited_cities = set(range(num_cities))
     current_city = np.random.choice(num_cities)
     print('Початкове місто:', city_names[current_city])
