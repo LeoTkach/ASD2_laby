@@ -19,7 +19,7 @@ dist_matrix = np.array([
 ])
 city_names = ['Lima', 'Arequipa', 'Trujillo', 'Chiclayo', 'Piura', 'Huancayo', 'Cusco', 'Chimbote', 'Tacna', 'Juliaca', 'Ica', 'Cajamarca', 'Pucallpa', 'Tarapoto', 'Ayacucho']
 
-def nearest_neighbor_tsp(dist_matrix):
+def nearest_neighbor(dist_matrix):
     num_cities = dist_matrix.shape[0]
     unvisited_cities = set(range(num_cities))
     current_city = np.random.choice(num_cities)
