@@ -54,7 +54,7 @@ def nearest_neighbor(dist_matrix):
     return tour, total_distance
 
 
-tour,total_distance = nearest_neighbor_tsp(dist_matrix)
+tour,total_distance = nearest_neighbor(dist_matrix)
 
 if tour is not None:
     city_tour = [city_names[i] for i in tour]
